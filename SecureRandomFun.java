@@ -1,16 +1,38 @@
 import java.security.SecureRandom;
 
 public class SecureRandomFun {
-
+    // -Djava.security.debug="provider,engine=SecureRandom"
     public static void main(String[] args) throws Exception {
 
-        print(new SecureRandom());
+        //        print(new SecureRandom());
 
         // this may block
         // the algorithm used is specified in java.security file
         // property: securerandom.strongAlgorithms
         // default is NativePRNGBlocking, provider is Sun
-        print(SecureRandom.getInstanceStrong());
+        //        print(SecureRandom.getInstanceStrong());
+
+
+        SecureRandom r = new SecureRandom();
+        r.setSeed(new byte[]{1});
+
+        for (int i = 0; i < 4; i++) {
+            byte[] v = new byte[1];
+            r.nextBytes(v);
+            System.out.print(v[0]);
+        }
+        System.out.println();
+
+        SecureRandom r2 = new SecureRandom();
+        r2.setSeed(new byte[]{1});
+
+        for (int i = 0; i < 4; i++) {
+            byte[] v = new byte[1];
+            r2.nextBytes(v);
+            System.out.print(v[0] + " ");
+        }
+        System.out.println();
+            
     }
 
     private static void print(SecureRandom r) throws Exception {
